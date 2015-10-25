@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Parallel Processing Workshop</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Parallel Processing Workshop</h1>
+
+<h2>Parallel processing resources and tools in Statistics, Biostatistics, and Economics</h2>
+
+<p>Chris Paciorek, Department of Statistics, UC Berkeley</p>
+
+<h1>0) This Workshop</h1>
+
+<p>This tutorial covers basic strategies for using parallel processing in R, Python, Matlab, and C on single machines and multiple machines. </p>
+
+<p>This tutorial assumes you have a working knowledge of either R, Python, Matlab, or C. </p>
+
+<p>Materials for this tutorial, including the R markdown file and associated code files that were used to create this document are available on Github at <a href="https://github.com/berkeley-scf/parallel-scf-2015">https://github.com/berkeley-scf/parallel-scf-2015</a>.  You can download the files by doing a git clone from a terminal window on a UNIX-like machine, as follows:</p>
+
+<pre><code class="r">git clone https://github.com/berkeley-scf/parallel-scf-2015
+</code></pre>
+
+<p>To create this HTML document, simply compile the corresponding R Markdown file in R as follows.</p>
+
+<pre><code class="r">Rscript -e &quot;library(knitr); knit2html(&#39;parallel.Rmd&#39;)&quot;
+</code></pre>
+
+<p>This tutorial by Christopher Paciorek is licensed under a Creative Commons Attribution 3.0 Unported License.</p>
+
+<h1>1) Resources and links</h1>
+
+<p>This workshop will draw heavily on already-prepared SCF material. We&#39;ll move back and forth between this material and the following tutorials and instructions:</p>
+
+<ul>
+<li><a href="https://github.com/berkeley-scf/tutorial-parallel-basics">Tutorial on shared memory parallel processing</a>, in particular the <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-basics/master/parallel-basics.html">HTML overview</a></li>
+<li><a href="https://github.com/berkeley-scf/tutorial-parallel-distributed">Tutorial on distributed memory parallel processing</a>, in particular the <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-distributed/master/parallel-dist.html">HTML overview</a></li>
+<li><a href="http://statistics.berkeley.edu/computing/servers/cluster">Instructions for the SCF Linux cluster</a></li>
+<li><a href="http://statistics.berkeley.edu/computing/servers/cluster-high">Instructions for the SCF high-priority Linux cluster</a></li>
+<li><a href="http://research-it.berkeley.edu/services/high-performance-computing">Instructions for using the Savio campus Linux cluster</a></li>
+</ul>
+
+<p>Additional information on:</p>
+
+<ul>
+<li><a href="https://github.com/berkeley-scf/gpu-workshop-2014">GPUs</a></li>
+<li><a href="https://github.com/berkeley-scf/spark-workshop-2014">Spark and MapReduce</a></li>
+</ul>
+
+<h1>1) Overview of parallel processing paradigms</h1>
+
+<p>First, let&#39;s see some terms in <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-basics/master/parallel-basics.html">Section 1.1 of the shared memory tutorial</a>. </p>
+
+<h2>1.1) Shared memory</h2>
+
+<ul>
+<li><p>threaded computations</p>
+
+<ul>
+<li>threaded linear algebra (OpenBLAS, MKL, ACML) called from R, Python, Matlab, C/C++</li>
+<li>Matlab functions that are natively threaded</li>
+<li>OpenMP C/C++ code</li>
+</ul></li>
+<li><p>multi-core computations using multiple processes</p>
+
+<ul>
+<li>foreach, parallel apply/sapply/lapply in R</li>
+<li>multiprocessing, pp, and other packages in Python</li>
+<li>Matlab parfor loops</li>
+<li>(Open MP C/C++ code fits here too)</li>
+</ul></li>
+</ul>
+
+<h3>Threaded linear algebra</h3>
+
+<p>A fast BLAS (Basic Linear Algebra Subroutines) package can make a huge difference in terms of computational time for linear algebra involving large matrices/vectors. More information can be found in <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-basics/master/parallel-basics.html">Section 2 of the shared memory tutorial</a> </p>
+
+<h2>1.2) GPUs</h2>
+
+<ul>
+<li>CUDA and openCL code in C/C++</li>
+<li>CPU+GPU linear algebra via Magma in C/C++</li>
+<li>calling CUDA/openCL code from R </li>
+<li>calling CUDA/openCL from Python </li>
+</ul>
+
+<h2>1.3) Distributed memory</h2>
+
+<ul>
+<li><p>high-level tools that hide the inter-machine communication</p>
+
+<ul>
+<li>foreach and parallel apply/lapply/sapply with Rmpi backends in R</li>
+<li>parallel linear algebra using pbdR</li>
+<li>pp package and IPython parallelization in Python</li>
+<li>Matlab parfor loops with DCS</li>
+</ul></li>
+<li><p>direct MPI coding</p>
+
+<ul>
+<li>MPI code in C/C++</li>
+<li>mpi4py Python package</li>
+<li>Rmpi and pbdR MPI interfaces<br/></li>
+</ul></li>
+<li><p>distributed computations with a distributed filesystem (HDFS)</p>
+
+<ul>
+<li>PySpark (Python)</li>
+<li>Spark (Scala or Java)</li>
+<li>SparkR ( R )</li>
+<li>various interfaces to Hadoop</li>
+</ul></li>
+</ul>
+
+<h1>2) Parallel hardware resources</h1>
+
+<ul>
+<li><p>SCF</p>
+
+<ul>
+<li>main cluster: 8 nodes x 32 cores/node; 256 Gb RAM per node; SGE queueing</li>
+<li>newer cluster: 4 nodes by 12 (24) cores/node: 128 Gb RAM per node, SLURM queueing</li>
+<li>one GPU</li>
+</ul></li>
+<li><p>EML</p>
+
+<ul>
+<li>main cluster: 8 nodes x 32 cores/node; 256 Gb RAM per node; SGE queueing</li>
+</ul></li>
+<li><p>Biostatistics </p>
+
+<ul>
+<li>new cluster: 8 nodes x 24 cores/node; 64 Gb RAM per node; SGE queueing (SLURM/Torque?)</li>
+</ul></li>
+<li><p>Savio (SLURM queueing)</p>
+
+<ul>
+<li>SCF nodes: 2 nodes x 24 cores/node; 64 Gb RAM per node</li>
+<li>EML nodes: 2 nodes; details to be determined</li>
+<li>Biostat (Mark/Alan) nodes: 8 nodes </li>
+<li>Faculty Compute Allowance
+
+<ul>
+<li>~200,000 core-hours per year free per faculty member; can be delegated to grads/postdocs</li>
+<li>512 Gb RAM nodes available</li>
+<li>nodes with 2 GPUs each available</li>
+</ul></li>
+<li>Spark available on department nodes or FCA but likely want more than 2 nodes for a job</li>
+</ul></li>
+<li><p>Amazon EC2 and other cloud providers</p>
+
+<ul>
+<li>ability to start virtual machines and virtual clusters</li>
+</ul></li>
+</ul>
+
+<h1>3) Using the SCF (and EML) clusters</h1>
+
+<h2>3.1) Job submission overview</h2>
+
+<p>Key ingredients:</p>
+
+<ul>
+<li>1) R/Python/Matlab/C code that may contain code that operates in parallel</li>
+<li>2) a job script as a bash script that calls your R/Python/Matlab/C code</li>
+<li>3) start your job via the queueing software from any of the stand-alone SCF (or EML) Linux servers (e.g., arwen, beren, gandalf)</li>
+</ul>
+
+<p>Optionally, you might have a wrapper script that submits one or more jobs, e.g., by using a loop in bash shell syntax. See the <a href="http://statistics.berkeley.edu/computing/servers/cluster#automated-submission">cluster webpage</a> for example syntax for automating submission of multiple jobs.  </p>
+
+<p>As a demonstration, we&#39;ll run and monitor an R job that uses threaded linear algebra. We&#39;ll</p>
+
+<pre><code class="bash"># cat job.sh
+# cat sim.R
+# submit:
+qsub -pe smp 8 job.sh
+# monitor:
+qstat
+# check on CPU/memory use:
+qrsh -q interactive.q -l hostname=scf-smXX
+top
+</code></pre>
+
+<h2>3.2) Submitting non-threaded one-core jobs</h2>
+
+<p>Here are simple job script examples. To use these, you&#39;d simply put the appropriate line of code for your particular language in a file, say <em>job.sh</em>.</p>
+
+<pre><code class="bash"># R
+R CMD BATCH --no-save sim.R sim.Rout
+# Python 
+python sim.py &gt; sim.out
+# Matlab
+matlab -nodisplay -nodesktop -singleCompThread &lt; sim.m &gt; sim.out
+</code></pre>
+
+<p>To submit the job:</p>
+
+<pre><code class="bash"># regular queue
+qsub job.sh
+# high-priority queue
+qsub -q high.q job.sh
+# regular queue, longer than 3 days
+qsub -l h_rt=672:00:00 job.sh
+# high queue, longer than 3 days
+qsub -l h_rt=168:00:00 job.sh
+</code></pre>
+
+<h2>3.3) Submitting threaded jobs</h2>
+
+<p>Have your script (say <em>job.sh</em>) use the appropriate lines from among the following examples.</p>
+
+<pre><code class="bash">### R
+export OMP_NUM_THREADS=${NSLOTS}
+R CMD BATCH --no-save sim.R sim.Rout
+
+### Python 
+export OMP_NUM_THREADS=${NSLOTS}
+python sim.py &gt; sim.out
+
+### Matlab
+matlab -nodisplay -nodesktop &lt; sim.m &gt; sim.out
+# include this line at the top of your MATLAB code:
+# feature(&#39;numThreads&#39;, str2num(getenv(&#39;NSLOTS&#39;)))
+
+### C/C++ with OpenMP
+# compile with: g++ -fopenmp test.cpp -o test 
+export OMP_NUM_THREADS=${NSLOTS}
+./test &gt; test.out
+</code></pre>
+
+<p>To submit the job, decide on the number of cores you want to use (8 in this case) and add <code>-pe smp 8</code> to the <em>qsub</em> commands shown above. For example, </p>
+
+<pre><code class="bash"># regular queue
+qsub -pe smp 8 job.sh
+</code></pre>
+
+<h2>3.4) Submitting multi-core jobs</h2>
+
+<p>Have your script (say <em>job.sh</em>) use the appropriate lines from among the following examples.</p>
+
+<pre><code class="bash"># R
+R CMD BATCH --no-save sim.R sim.Rout
+# Python 
+python sim.py &gt; sim.out
+# Matlab
+matlab -nodisplay -nodesktop -singleCompThread &lt; sim.m &gt; sim.out
+</code></pre>
+
+<p>Your R/Python/Matlab code should use the NSLOTS environment variable when determining the number of parallel processes to run. For example</p>
+
+<pre><code class="bash">### R
+nCores &lt;- as.numeric(Sys.getenv(&#39;NSLOTS&#39;))
+
+### Python
+nCores = int(os.environ[&#39;NSLOTS&#39;])
+
+### Matlab
+pl = parpool(str2num(getenv(&#39;NSLOTS&#39;)));
+# see cluster webpage if you want to use more than 12 processes
+</code></pre>
+
+<p>Then for R and Python use <code>nCores</code> in the code that sets up the parallel processing.</p>
+
+<h2>3.5) Submitting jobs for multiple nodes</h2>
+
+<p>Here&#39;s an example job script, assuming that <em>example-mpi.py</em> uses the <em>mpi4py</em> package. You can see the Python code in the distributed memory tutorial.</p>
+
+<pre><code class="bash">mpirun -machinefile ${TMPDIR}/machines -np ${NSLOTS} python example-mpi.py 
+</code></pre>
+
+<p>Here&#39;s how you would submit the job, requesting 36 cores:</p>
+
+<pre><code class="bash">qsub -pe mpi 36 job.sh
+</code></pre>
+
+<p>Please see the SCF (or EML) cluster instructions for more details on submitting such jobs using the <em>mpi</em> or <em>dcs</em> parallel environment. </p>
+
+<h2>3.6) Interactive jobs</h2>
+
+<p>You can work interactively by simply submitting an interactive job request as <code>qrsh -q interactive.q</code></p>
+
+<p>For threaded, multi-core, and multi-node jobs, you still need to request multiple cores/nodes via the -pe syntax. </p>
+
+<p>Just remember to exit when you are done computing so you don&#39;t prevent others from using the cores you requested. </p>
+
+<h2>3.6) Tips and tricks</h2>
+
+<h3>3.6.1)  Reserving cores when the cluster is busy</h3>
+
+<p>When the cluster is busy, multi-core jobs may wait in the queue with jobs that use fewer cores slipping ahead of them. To partially alleviate this, you can use the -R flag:</p>
+
+<pre><code class="bash"># regular queue
+qsub -R y -pe smp 8 job.sh
+</code></pre>
+
+<h3>3.6.2) Doing input/output to the local disk of the cluster node</h3>
+
+<p>For jobs that do a lot of I/O, it&#39;s best to read/write directly from the disk of the node(s) rather than from your home directory on the shared filesystem.  Here are the steps in the form of an example job script, assuming the input file is input.csv and the output file that your code creates is output.dat.</p>
+
+<pre><code class="bash">cp ~/input.csv /tmp/.
+python sim.py &gt; sim.out # your code should read/write from /tmp
+cp /tmp/output.dat ~/.
+</code></pre>
+
+<h1>4) Strategies and suggestions for how to parallelize your computation.</h1>
+
+<p>Let&#39;s talk through some of the issues, following the material in the <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-basics/master/parallel-basics.html">Section 4 of the shared memory tutorial</a>.</p>
+
+<h1>5) Some examples of parallel processing in R, Python, and C</h1>
+
+<p>You can find a more extensive set of examples of parallel functionality in the shared and distributed memory tutorials. Here we&#39;ll just see a small number of examples. We&#39;ll demonstrate them without using the cluster, simply using one or more of the stand-alone Linux servers. </p>
+
+<h2>5.1) Threaded linear algebra in Python</h2>
+
+<p>Here&#39;s some linear algebra in Python that should use the default BLAS on the system, which on the SCF is OpenBLAS, which is threaded.</p>
+
+<pre><code class="python"># in bash before starting Python to use 4 threads: export OMP_NUM_THREADS=4
+import numpy as np
+n = 8000
+x = np.random.normal(0, 1, size=(n, n))
+x = x.T.dot(x)
+U = np.linalg.cholesky(x)
+</code></pre>
+
+<p>Be careful as not all of the linear algebra calls from numpy and scipy may by default be set up to use a threaded BLAS, even if it is installed on your system.  </p>
+
+<h2>5.2) Parallel for loops in R on one or more nodes</h2>
+
+<p>Here&#39;s some basic R code using foreach with the doMPI backend to allow us to parallelize across multiple nodes:</p>
+
+<pre><code class="r">## you should have invoked R as:
+## mpirun -machinefile .hosts -np 1 R CMD BATCH --no-save file.R file.out
+
+library(Rmpi)
+library(doMPI)
+
+cl &lt;- startMPIcluster()  # by default will start one fewer slave
+# than elements in .hosts
+
+registerDoMPI(cl)
+clusterSize(cl) # just to check
+
+results &lt;- foreach(i = 1:200) %dopar% {
+  out &lt;- mean(rnorm(1e6))
+}
+
+print(results[1:5])
+
+closeCluster(cl)
+
+mpi.quit()
+</code></pre>
+
+<p>Here&#39;s the job script, assuming we are NOT using the cluster:</p>
+
+<pre><code class="bash">mpirun -machinefile .hosts -np 1 R CMD BATCH -q --no-save doMPI.R doMPI.out
+</code></pre>
+
+<p>To do a parallel for loop on a single machine, one modifies the setup as seen in <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-basics/master/parallel-basics.html">Section 3.1.1 of the shared memory tutorial</a> and simply starts R as normal without using mpirun. But one can use doMPI on a single machine if one likes.</p>
+
+<h2>5.3) Parallelizing tasks in Python</h2>
+
+<p>Here&#39;s code that uses the pp package to parallelize tasks on a single node.</p>
+
+<pre><code class="python">import numpy
+import pp
+
+nCores = 4
+job_server = pp.Server(ncpus = nCores, secret = &#39;mysecretphrase&#39;)
+# set &#39;secret&#39; to some passphrase (you need to set it but 
+#   what it is should not be crucial)
+job_server.get_ncpus()
+
+nSmp = 10000000
+m = 40
+def taskFun(i, n):
+    numpy.random.seed(i)
+    return (i, numpy.mean(numpy.random.normal(0, 1, n)))
+
+# create list of tuples to iterate over
+inputs = [(i, nSmp) for i in xrange(m)]
+# submit and run jobs using list comprehension
+jobs = [job_server.submit(taskFun, invalue, modules = (&#39;numpy&#39;,)) for invalue in inputs]
+# collect results (will have to wait for longer tasks to finish)
+results = [job() for job in jobs]
+print(results)
+job_server.destroy()
+</code></pre>
+
+<p>You can do the same operations across multiple nodes using the pp package as well. However, you need to do a bit of work to get the worker nodes ready. See <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-distributed/master/parallel-dist.html">Section 3.2 of the distributed memory tutorial</a> for more details. </p>
+
+<h2>5.4) Parallel linear algebra using ScaLapack via pbdR in R</h2>
+
+<p><a href="https://rawgit.com/berkeley-scf/tutorial-parallel-basics/master/parallel-basics.html">Section 3.1.2 of the distributed memory tutorial</a> gives an overview of pbdR, a relatively new effort to enhance R&#39;s capability for distributed memory processing.</p>
+
+<p>One of pbdR&#39;s capabilities is to provide an R interface to ScaLapack, the parallel version of Lapack.</p>
+
+<p>Here&#39;s an example of doing some distributed linear algebra.</p>
+
+<pre><code class="r">library(pbdDMAT, quiet = TRUE )
+
+n &lt;- 4096*2
+
+# if you are putting multiple processes on node
+# you may want to prevent threading of the linear algebra:
+# library(RhpcBLASctl)
+# blas_set_num_threads(1)
+# (or do by passing OMP_NUM_THREADS to mpirun
+
+init.grid()
+
+if(comm.rank()==0) print(date())
+
+# pbd allows for parallel I/O, but here
+# we keep things simple and distribute
+# an object from one process
+if(comm.rank() == 0) {
+    x &lt;- rnorm(n^2)
+    dim(x) &lt;- c(n, n)
+} else x &lt;- NULL
+dx &lt;- as.ddmatrix(x)
+
+timing &lt;- comm.timer(sigma &lt;- crossprod(dx))
+
+if(comm.rank()==0) {
+    print(date())
+    print(timing)
+}
+
+timing &lt;- comm.timer(out &lt;- chol(sigma))
+
+if(comm.rank()==0) {
+    print(date())
+    print(timing)
+}
+
+finalize()
+</code></pre>
+
+<p>We run pbdR code via mpirun, starting all of the R processes through mpirun.</p>
+
+<pre><code class="bash">export OMP_NUM_THREADS=1
+mpirun -machinefile .hosts -x OMP_NUM_THREADS Rscript pbd-linalg.R &gt; pbd-linalg.out
+</code></pre>
+
+<h1>6) Random number generation for parallelized jobs</h1>
+
+<p>Let&#39;s talk through some of the issues, following the material in the <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-basics/master/parallel-basics.html">shared memory tutorial, section 5</a>.</p>
+
+</body>
+
+</html>
