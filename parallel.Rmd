@@ -1,4 +1,4 @@
-Parallel Processing Workshop
+Parallel Processing Workshop, October 2015
 ==============================================================
 Parallel processing resources and tools in Statistics, Biostatistics, and Economics
 --------------

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Parallel Processing Workshop</title>
+<title>Parallel Processing Workshop, October 2015</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,7 +201,7 @@ hr {
 </head>
 
 <body>
-<h1>Parallel Processing Workshop</h1>
+<h1>Parallel Processing Workshop, October 2015</h1>
 
 <h2>Parallel processing resources and tools in Statistics, Biostatistics, and Economics</h2>
 
@@ -602,7 +602,7 @@ n &lt;- 4096*2
 # you may want to prevent threading of the linear algebra:
 # library(RhpcBLASctl)
 # blas_set_num_threads(1)
-# (or do by passing OMP_NUM_THREADS to mpirun
+# (or do by passing OMP_NUM_THREADS to mpirun)
 
 init.grid()
 
@@ -642,7 +642,7 @@ mpirun -machinefile .hosts -x OMP_NUM_THREADS Rscript pbd-linalg.R &gt; pbd-lina
 
 <h1>6) Random number generation for parallelized jobs</h1>
 
-<p>Let&#39;s talk through some of the issues, following the material in the <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-basics/master/parallel-basics.html">shared memory tutorial, section 5</a>.</p>
+<p>Let&#39;s talk through some of the issues, following the material in <a href="https://rawgit.com/berkeley-scf/tutorial-parallel-basics/master/parallel-basics.html">Section 5 of the shared memory tutorial</a>.</p>
 
 </body>
 
