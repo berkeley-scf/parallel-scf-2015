@@ -27,7 +27,7 @@ To create this HTML document, simply compile the corresponding R Markdown file i
 ```{r, build-html, eval=FALSE}
 Rscript -e "library(knitr); knit2html('parallel.Rmd')"
 ```
-This tutorial by Christopher Paciorek is licensed under a Creative Commons Attribution 3.0 Unported License.
+This workshop material by Christopher Paciorek is licensed under a Creative Commons Attribution 3.0 Unported License.
 
 
 # 1) Resources and links
@@ -79,7 +79,7 @@ A fast BLAS (Basic Linear Algebra Subroutines) package can make a huge differenc
    - foreach and parallel apply/lapply/sapply with Rmpi backends in R
    - parallel linear algebra using pbdR
    - pp package and IPython parallelization in Python
-   - Matlab parfor loops with DCS
+   - Matlab parfor loops with DCS (Economics or Savio have licenses)
 
  - direct MPI coding
     - MPI code in C/C++
@@ -106,9 +106,10 @@ A fast BLAS (Basic Linear Algebra Subroutines) package can make a huge differenc
    - new cluster: 8 nodes x 24 cores/node; 64 Gb RAM per node; SGE queueing (SLURM/Torque?)
 
  - Savio (SLURM queueing)
-   - SCF nodes: 2 nodes x 24 cores/node; 64 Gb RAM per node
-   - EML nodes: 2 nodes; details to be determined
-   - Biostat (Mark/Alan) nodes: 8 nodes 
+   - Department-owned nodes
+     - SCF nodes: 2 nodes x 24 cores/node; 64 Gb RAM per node
+     - EML nodes: 2 nodes; details to be determined
+     - Biostat (Mark/Alan) nodes: 8 nodes 
    - Faculty Compute Allowance
      - ~200,000 core-hours per year free per faculty member; can be delegated to grads/postdocs
      - 512 Gb RAM nodes available
@@ -128,9 +129,8 @@ Key ingredients:
 
  + 1) R/Python/Matlab/C code that may contain code that operates in parallel
  + 2) a job script as a bash script that calls your R/Python/Matlab/C code
- + 3) start your job via the queueing software from any of the stand-alone SCF (or EML) Linux servers (e.g., arwen, beren, gandalf)
- 
-Optionally, you might have a wrapper script that submits one or more jobs, e.g., by using a loop in bash shell syntax. See the [cluster webpage](http://statistics.berkeley.edu/computing/servers/cluster#automated-submission) for example syntax for automating submission of multiple jobs.  
+ + 3) start your job via `qsub` from any of the stand-alone SCF (or EML) Linux servers (e.g., arwen, beren, gandalf).  
+    - Optionally, you might have a wrapper script that submits one or more jobs, e.g., by using a loop in bash shell syntax. See the [cluster webpage](http://statistics.berkeley.edu/computing/servers/cluster#automated-submission) for example syntax for automating submission of multiple jobs.  
 
 As a demonstration, we'll run and monitor an R job that uses threaded linear algebra. We'll
 
@@ -234,9 +234,16 @@ pl = parpool(str2num(getenv('NSLOTS')));
 
 Then for R and Python use `nCores` in the code that sets up the parallel processing.
 
+To submit the job, decide on the number of cores you want to use (8 in this case) and add ```-pe smp 8``` to the *qsub* command. For example, 
+ 
+```{r, submit-multicore, eval=FALSE, engine='bash'}
+# regular queue
+qsub -pe smp 8 job.sh
+```
+
 ## 3.5) Submitting jobs for multiple nodes
 
-Here's an example job script, assuming that *example-mpi.py* uses the *mpi4py* package. You can see the Python code in the distributed memory tutorial.
+Here's an example job script, assuming that *example-mpi.py* uses the *mpi4py* package. You can see the Python code in the distributed memory tutorial. The file *${TMPDIR}/machines* is created by the queueing software for your particular job submission and will contain the list of nodes allocated for the job.
 
 ```{r, mpi-script, eval=FALSE, engine='bash'}
 mpirun -machinefile ${TMPDIR}/machines -np ${NSLOTS} python example-mpi.py 
@@ -318,7 +325,7 @@ To do a parallel for loop on a single machine, one modifies the setup as seen in
 
 ## 5.3) Parallelizing tasks in Python
 
-Here's code that uses the pp package to parallelize tasks on a single node.
+Here's code that uses the pp package to parallelize tasks on a single node. Note that this may not work in an interactive session in base Python but should work interactively in IPython and in batch mode.
 
 ```{r, pp, engine='python', eval=FALSE}
 ```
@@ -342,6 +349,8 @@ We run pbdR code via mpirun, starting all of the R processes through mpirun.
 export OMP_NUM_THREADS=1
 mpirun -machinefile .hosts -x OMP_NUM_THREADS Rscript pbd-linalg.R > pbd-linalg.out
 ```
+
+Setting *OMP_NUM_THREADS* to be other than 1 may not always have an effect. We'd need to look into how pbdR and ScaLapack handle threading.
 
 # 6) Random number generation for parallelized jobs
 

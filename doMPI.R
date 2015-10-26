@@ -1,7 +1,9 @@
 ## @knitr doMPI
 
 ## you should have invoked R as:
-## mpirun -machinefile .hosts -np 1 R CMD BATCH --no-save file.R file.out
+## mpirun -machinefile .hosts -np 1 R CMD BATCH --no-save doMPI.R doMPI.Rout
+## or for interactive use:
+## mpirun -machinefile .hosts -np 1 R --no-save
 
 library(Rmpi)
 library(doMPI)

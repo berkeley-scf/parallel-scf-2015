@@ -223,7 +223,7 @@ hr {
 <pre><code class="r">Rscript -e &quot;library(knitr); knit2html(&#39;parallel.Rmd&#39;)&quot;
 </code></pre>
 
-<p>This tutorial by Christopher Paciorek is licensed under a Creative Commons Attribution 3.0 Unported License.</p>
+<p>This workshop material by Christopher Paciorek is licensed under a Creative Commons Attribution 3.0 Unported License.</p>
 
 <h1>1) Resources and links</h1>
 
@@ -290,7 +290,7 @@ hr {
 <li>foreach and parallel apply/lapply/sapply with Rmpi backends in R</li>
 <li>parallel linear algebra using pbdR</li>
 <li>pp package and IPython parallelization in Python</li>
-<li>Matlab parfor loops with DCS</li>
+<li>Matlab parfor loops with DCS (Economics or Savio have licenses)</li>
 </ul></li>
 <li><p>direct MPI coding</p>
 
@@ -332,9 +332,13 @@ hr {
 <li><p>Savio (SLURM queueing)</p>
 
 <ul>
+<li>Department-owned nodes
+
+<ul>
 <li>SCF nodes: 2 nodes x 24 cores/node; 64 Gb RAM per node</li>
 <li>EML nodes: 2 nodes; details to be determined</li>
 <li>Biostat (Mark/Alan) nodes: 8 nodes </li>
+</ul></li>
 <li>Faculty Compute Allowance
 
 <ul>
@@ -360,10 +364,12 @@ hr {
 <ul>
 <li>1) R/Python/Matlab/C code that may contain code that operates in parallel</li>
 <li>2) a job script as a bash script that calls your R/Python/Matlab/C code</li>
-<li>3) start your job via the queueing software from any of the stand-alone SCF (or EML) Linux servers (e.g., arwen, beren, gandalf)</li>
-</ul>
+<li>3) start your job via <code>qsub</code> from any of the stand-alone SCF (or EML) Linux servers (e.g., arwen, beren, gandalf).<br/>
 
-<p>Optionally, you might have a wrapper script that submits one or more jobs, e.g., by using a loop in bash shell syntax. See the <a href="http://statistics.berkeley.edu/computing/servers/cluster#automated-submission">cluster webpage</a> for example syntax for automating submission of multiple jobs.  </p>
+<ul>
+<li>Optionally, you might have a wrapper script that submits one or more jobs, e.g., by using a loop in bash shell syntax. See the <a href="http://statistics.berkeley.edu/computing/servers/cluster#automated-submission">cluster webpage</a> for example syntax for automating submission of multiple jobs.<br/></li>
+</ul></li>
+</ul>
 
 <p>As a demonstration, we&#39;ll run and monitor an R job that uses threaded linear algebra. We&#39;ll</p>
 
@@ -458,9 +464,15 @@ pl = parpool(str2num(getenv(&#39;NSLOTS&#39;)));
 
 <p>Then for R and Python use <code>nCores</code> in the code that sets up the parallel processing.</p>
 
+<p>To submit the job, decide on the number of cores you want to use (8 in this case) and add <code>-pe smp 8</code> to the <em>qsub</em> command. For example, </p>
+
+<pre><code class="bash"># regular queue
+qsub -pe smp 8 job.sh
+</code></pre>
+
 <h2>3.5) Submitting jobs for multiple nodes</h2>
 
-<p>Here&#39;s an example job script, assuming that <em>example-mpi.py</em> uses the <em>mpi4py</em> package. You can see the Python code in the distributed memory tutorial.</p>
+<p>Here&#39;s an example job script, assuming that <em>example-mpi.py</em> uses the <em>mpi4py</em> package. You can see the Python code in the distributed memory tutorial. The file <em>${TMPDIR}/machines</em> is created by the queueing software for your particular job submission and will contain the list of nodes allocated for the job.</p>
 
 <pre><code class="bash">mpirun -machinefile ${TMPDIR}/machines -np ${NSLOTS} python example-mpi.py 
 </code></pre>
@@ -526,7 +538,9 @@ U = np.linalg.cholesky(x)
 <p>Here&#39;s some basic R code using foreach with the doMPI backend to allow us to parallelize across multiple nodes:</p>
 
 <pre><code class="r">## you should have invoked R as:
-## mpirun -machinefile .hosts -np 1 R CMD BATCH --no-save file.R file.out
+## mpirun -machinefile .hosts -np 1 R CMD BATCH --no-save doMPI.R doMPI.Rout
+## or for interactive use:
+## mpirun -machinefile .hosts -np 1 R --no-save
 
 library(Rmpi)
 library(doMPI)
@@ -557,7 +571,7 @@ mpi.quit()
 
 <h2>5.3) Parallelizing tasks in Python</h2>
 
-<p>Here&#39;s code that uses the pp package to parallelize tasks on a single node.</p>
+<p>Here&#39;s code that uses the pp package to parallelize tasks on a single node. Note that this may not work in an interactive session in base Python but should work interactively in IPython and in batch mode.</p>
 
 <pre><code class="python">import numpy
 import pp
